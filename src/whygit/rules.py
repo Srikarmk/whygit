@@ -200,10 +200,13 @@ def _child_repos(st: RepoState) -> list[str]:
                                 found.append(f"{c.name}/{g.name}")
                     except OSError:
                         pass
-            if len(found) >= 8:
+            if len(found) > 50:
                 break
     except OSError:
         pass
+    if len(found) > 8:
+        more = f"{len(found) - 8}+" if len(found) > 50 else str(len(found) - 8)
+        return found[:8] + [f"... and {more} more"]
     return found
 
 

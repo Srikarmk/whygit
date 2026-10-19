@@ -183,3 +183,13 @@ def test_findings_are_complete_and_destructive_steps_warn(build, name):
             for s in opt["steps"]:
                 if s.get("destructive"):
                     assert s.get("warning"), (name, f["rule"], s)
+
+
+def test_many_child_repos_says_how_many_more(sandbox):
+    top = sandbox.home / "projects"
+    for i in range(13):
+        sandbox.init(top / f"repo{i:02d}")
+    f = _find(diagnose(top), "not_a_repo")
+    items = f["details"]["items"]
+    assert items[:8] == [f"repo{i:02d}" for i in range(8)]
+    assert items[8] == "... and 5 more"
