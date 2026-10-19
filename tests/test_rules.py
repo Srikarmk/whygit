@@ -1,8 +1,8 @@
 import pytest
 from scenarios import SCENARIOS
 
-from gitwhy.engine import diagnose
-from gitwhy.rules import RULES
+from whygit.engine import diagnose
+from whygit.rules import RULES
 
 
 def ids(report):

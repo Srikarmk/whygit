@@ -18,7 +18,7 @@ jobs:
           python -m build
       - name: Check tag matches package version
         run: |
-          version=$(python -c "import re,pathlib; print(re.search(r'__version__ = \"(.+)\"', pathlib.Path('src/gitwhy/__init__.py').read_text()).group(1))")
+          version=$(python -c "import re,pathlib; print(re.search(r'__version__ = \"(.+)\"', pathlib.Path('src/whygit/__init__.py').read_text()).group(1))")
           project=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml','rb'))['project']['version'])")
           test "v$version" = "$GITHUB_REF_NAME" || { echo "Tag $GITHUB_REF_NAME does not match __version__ $version"; exit 1; }
           test "$version" = "$project" || { echo "__version__ $version does not match pyproject $project"; exit 1; }

@@ -1,5 +1,5 @@
 [project]
-name = "gitwhy"
+name = "whygit"
 version = "0.1.0"
 description = "Explains what state your Git repository is in and how to fix it, in plain English. CLI and MCP server; read-only."
 readme = "README.md"
@@ -28,12 +28,12 @@ classifiers = [
 dependencies = ["mcp>=2.3,<3"]
 
 [project.urls]
-Homepage = "https://github.com/Srikarmk/gitwhy"
-Source = "https://github.com/Srikarmk/gitwhy"
-Issues = "https://github.com/Srikarmk/gitwhy/issues"
+Homepage = "https://github.com/Srikarmk/whygit"
+Source = "https://github.com/Srikarmk/whygit"
+Issues = "https://github.com/Srikarmk/whygit/issues"
 
 [project.scripts]
-gitwhy = "gitwhy.cli:main"
+whygit = "whygit.cli:main"
 
 [dependency-groups]
 dev = ["pytest>=8", "anyio>=4"]

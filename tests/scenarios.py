@@ -413,7 +413,7 @@ def dubious(sb: Sandbox) -> Path:
     return repo
 
 
-# Scenario name -> (builder, rule ids that must fire, extra environment for gitwhy)
+# Scenario name -> (builder, rule ids that must fire, extra environment for whygit)
 SCENARIOS: dict[str, tuple] = {
     "clean": (clean, set(), {}),
     "not_repo": (not_repo, {"not_a_repo"}, {}),

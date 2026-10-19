@@ -169,9 +169,9 @@ def explain_error(error_text: str, path: str | os.PathLike | None = None) -> dic
                 out["also_in_this_repo"] = extra
     else:
         out["message"] = (
-            "gitwhy doesn't recognise this message. Here is what it can see in the repository instead."
+            "whygit doesn't recognise this message. Here is what it can see in the repository instead."
             if st is not None
-            else "gitwhy doesn't recognise this message. Pass the repository path to get a diagnosis of its current state."
+            else "whygit doesn't recognise this message. Pass the repository path to get a diagnosis of its current state."
         )
         if st is not None:
             out["diagnosis"] = [f.to_dict() for f in findings_for(st)]

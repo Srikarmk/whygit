@@ -110,7 +110,7 @@ def finding_lines(f: dict, s: Style, width: int) -> list[str]:
 
 def render_diagnosis(report: dict, s: Style) -> str:
     width = _width()
-    head = "gitwhy: " + report.get("repo_root", report["path"])
+    head = "whygit: " + report.get("repo_root", report["path"])
     if report.get("branch"):
         head += f" (branch {report['branch']})"
     elif report.get("head"):
@@ -121,18 +121,18 @@ def render_diagnosis(report: dict, s: Style) -> str:
     lines.append("")
     findings = report.get("findings", [])
     if not findings:
-        lines.append("No problems found. Run `gitwhy status` for a plain summary of the repository.")
+        lines.append("No problems found. Run `whygit status` for a plain summary of the repository.")
         return "\n".join(lines)
     for f in findings:
         lines += finding_lines(f, s, width)
         lines.append("")
-    lines.append(s.dim(report["summary"] + ". gitwhy never runs these commands for you; copy the ones you want."))
+    lines.append(s.dim(report["summary"] + ". whygit never runs these commands for you; copy the ones you want."))
     return "\n".join(lines)
 
 
 def render_state(state: dict, s: Style) -> str:
     width = _width()
-    head = "gitwhy status: " + state.get("repo_root", state["path"])
+    head = "whygit status: " + state.get("repo_root", state["path"])
     lines = [s.bold(head), ""]
     for line in state.get("summary", []):
         lines += _wrap(line, "", width)
@@ -171,7 +171,7 @@ def render_explanation(res: dict, s: Style) -> str:
             for f in extra:
                 lines += finding_lines(f, s, width)
                 lines.append("")
-        lines.append(s.dim("gitwhy never runs these commands for you; copy the ones you want."))
+        lines.append(s.dim("whygit never runs these commands for you; copy the ones you want."))
     else:
         lines += _wrap(res.get("message", "Not recognised."), "", width)
         lines.append("")

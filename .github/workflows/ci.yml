@@ -43,6 +43,6 @@ jobs:
         run: |
           mkdir "$RUNNER_TEMP/demo" && cd "$RUNNER_TEMP/demo"
           git init -q
-          gitwhy
-          gitwhy status
-          gitwhy explain "fatal: not a git repository (or any of the parent directories): .git"
+          whygit
+          whygit status
+          whygit explain "fatal: not a git repository (or any of the parent directories): .git"

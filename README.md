@@ -1,32 +1,32 @@
-# gitwhy
+# whygit
 
 **What just happened to my Git repository, and how do I fix it?**
 
-gitwhy looks at a Git repository and tells you, in plain English, what state it is in and
+whygit looks at a Git repository and tells you, in plain English, what state it is in and
 which commands will get you out of it: a merge conflict, a rebase stopped halfway, a detached
 HEAD, a rejected push, a login GitHub won't accept, a 120 MB CSV that GitHub will refuse.
 Paste it an error message and it explains that too.
 
 It is written for people meeting Git for the first time. Git's own messages are accurate
-but hard to read; gitwhy turns them into a short explanation and the exact fix.
+but hard to read; whygit turns them into a short explanation and the exact fix.
 
 It only ever **reads** your repository. It never runs the fixes it suggests, so you stay in
 control and learn the commands as you go.
 
 There are two ways to use it, built on the same engine:
 
-- **On the command line**, with no AI tools involved: `gitwhy`.
+- **On the command line**, with no AI tools involved: `whygit`.
 - **As an MCP server**, so an assistant such as Claude Code, Claude Desktop or Cursor gets a
   reliable diagnosis instead of guessing from `git status`.
 
 ## Install
 
-gitwhy needs Python 3.10 or newer and Git. Pick one:
+whygit needs Python 3.10 or newer and Git. Pick one:
 
 ```
-uv tool install gitwhy     # with uv (https://docs.astral.sh/uv/)
-pipx install gitwhy        # with pipx
-uvx gitwhy                 # run once without installing
+uv tool install whygit     # with uv (https://docs.astral.sh/uv/)
+pipx install whygit        # with pipx
+uvx whygit                 # run once without installing
 ```
 
 This works the same on macOS, Windows and Linux.
@@ -36,10 +36,10 @@ This works the same on macOS, Windows and Linux.
 Run it inside your project folder:
 
 ```
-gitwhy                    # what's wrong here, most urgent first
-gitwhy status             # a plain summary: branch, upstream, what's changed
-gitwhy explain "fatal: refusing to merge unrelated histories"
-git push 2>&1 | gitwhy explain -
+whygit                    # what's wrong here, most urgent first
+whygit status             # a plain summary: branch, upstream, what's changed
+whygit explain "fatal: refusing to merge unrelated histories"
+git push 2>&1 | whygit explain -
 ```
 
 Options: `--path <folder>` (or `-C`) to look at another folder, `--json` for machine-readable
@@ -52,8 +52,8 @@ the folder does not exist), `3` `explain` did not recognise the message.
 ### Example
 
 ```
-$ gitwhy
-gitwhy: /Users/sam/ds3500/hw2 (branch main)
+$ whygit
+whygit: /Users/sam/ds3500/hw2 (branch main)
 
 [BLOCKING] Merge in progress with conflicts in 1 file
   Git tried to combine two lines of work, but both changed the same part of these
@@ -75,7 +75,7 @@ gitwhy: /Users/sam/ds3500/hw2 (branch main)
          Puts everything back the way it was before the merge started
   Learn more: https://git-scm.com/docs/git-merge#_how_to_resolve_conflicts
 
-1 blocking. gitwhy never runs these commands for you; copy the ones you want.
+1 blocking. whygit never runs these commands for you; copy the ones you want.
 ```
 
 Commands that can lose work (`git restore`, `git rebase --skip`, `git push --force-with-lease`
@@ -84,7 +84,7 @@ exists.
 
 ## Use it with an AI assistant (MCP)
 
-`gitwhy mcp` runs a Model Context Protocol server over stdio with three read-only tools:
+`whygit mcp` runs a Model Context Protocol server over stdio with three read-only tools:
 
 | Tool | Use it when | Returns |
 |---|---|---|
@@ -98,7 +98,7 @@ server's working directory, which for desktop apps is usually not your project. 
 ### Claude Code
 
 ```
-claude mcp add --scope user gitwhy -- uvx gitwhy mcp
+claude mcp add --scope user whygit -- uvx whygit mcp
 ```
 
 `--scope user` makes it available in every project; leave it out to add it to the current
@@ -106,16 +106,16 @@ project only. Check it with `claude mcp list`.
 
 ### Claude Desktop
 
-Open Settings > Developer > Edit Config, and add gitwhy to
+Open Settings > Developer > Edit Config, and add whygit to
 `claude_desktop_config.json` (on macOS `~/Library/Application Support/Claude/`, on Windows
 `%APPDATA%\Claude\`):
 
 ```json
 {
   "mcpServers": {
-    "gitwhy": {
+    "whygit": {
       "command": "uvx",
-      "args": ["gitwhy", "mcp"]
+      "args": ["whygit", "mcp"]
     }
   }
 }
@@ -131,15 +131,15 @@ Add the same block to `~/.cursor/mcp.json` (all projects) or `.cursor/mcp.json` 
 ```json
 {
   "mcpServers": {
-    "gitwhy": {
+    "whygit": {
       "command": "uvx",
-      "args": ["gitwhy", "mcp"]
+      "args": ["whygit", "mcp"]
     }
   }
 }
 ```
 
-If you installed gitwhy with `uv tool install` or `pipx`, you can use `"command": "gitwhy"`
+If you installed whygit with `uv tool install` or `pipx`, you can use `"command": "whygit"`
 with `"args": ["mcp"]` instead.
 
 ## What it recognises
@@ -168,7 +168,7 @@ a message, it says so and shows what it can see in the repository instead.
 
 ## The read-only promise
 
-gitwhy never changes your repository, and this is enforced in code rather than left to good
+whygit never changes your repository, and this is enforced in code rather than left to good
 intentions:
 
 - Every Git command goes through a single function that only accepts read-only subcommands
@@ -177,7 +177,7 @@ intentions:
   `config`, `remote` and `symbolic-ref`.
 - It sets `GIT_OPTIONAL_LOCKS=0`, so even `git status` doesn't refresh the index, and turns off
   external diff programs and the fsmonitor hook.
-- It never runs `git fetch`. Ahead/behind counts are "as of your last fetch", and gitwhy tells
+- It never runs `git fetch`. Ahead/behind counts are "as of your last fetch", and whygit tells
   you to run `git fetch` yourself when that matters.
 - The test suite builds each state in a real repository, snapshots every file under `.git`
   (names, timestamps and contents) before and after diagnosing, and checks nothing changed. It
@@ -188,7 +188,7 @@ is shown as `https://***@github.com/...`, in every output.
 
 ## Privacy
 
-gitwhy collects nothing and makes no network calls. It reads your repository on your own
+whygit collects nothing and makes no network calls. It reads your repository on your own
 computer and prints the result. That's all.
 
 ## Licence

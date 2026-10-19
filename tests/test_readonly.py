@@ -10,10 +10,10 @@ from pathlib import Path
 import pytest
 from scenarios import SCENARIOS
 
-from gitwhy import engine
-from gitwhy.gitcmd import GitRefused, check_allowed, run_git
+from whygit import engine
+from whygit.gitcmd import GitRefused, check_allowed, run_git
 
-SRC = Path(__file__).resolve().parent.parent / "src" / "gitwhy"
+SRC = Path(__file__).resolve().parent.parent / "src" / "whygit"
 
 
 def snapshot(root: Path) -> dict:
@@ -45,7 +45,7 @@ def settled(root: Path, timeout: float = 3.0) -> dict:
         if again == snap:
             return snap
         if time.monotonic() > deadline:
-            pytest.fail(f"sandbox still changing before gitwhy ran: {changed(snap, again)}")
+            pytest.fail(f"sandbox still changing before whygit ran: {changed(snap, again)}")
         snap = again
 
 
@@ -60,9 +60,9 @@ def test_diagnosing_changes_nothing(build, sandbox, name):
     engine.diagnose(path)
     engine.explain_state(path)
     engine.explain_error("error: failed to push some refs to 'origin'", path)
-    engine.explain_error("something gitwhy has never seen", path)
+    engine.explain_error("something whygit has never seen", path)
     after = snapshot(sandbox.root)
-    assert not changed(before, after), f"gitwhy changed: {changed(before, after)}"
+    assert not changed(before, after), f"whygit changed: {changed(before, after)}"
 
 
 def test_stale_index_would_be_rewritten_by_plain_status(build, sandbox):
@@ -129,7 +129,7 @@ def test_allowlist_accepts_reads():
 
 
 def test_optional_locks_disabled(sandbox, tmp_path):
-    from gitwhy.gitcmd import _env
+    from whygit.gitcmd import _env
 
     assert _env()["GIT_OPTIONAL_LOCKS"] == "0"
 
@@ -233,7 +233,7 @@ def test_source_never_writes_files():
 
 def test_suggested_commands_are_never_run(build, monkeypatch):
     """Every git call made while diagnosing every scenario is on the allowlist."""
-    import gitwhy.gitcmd as g
+    import whygit.gitcmd as g
 
     seen = []
     real = subprocess.run

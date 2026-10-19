@@ -14,13 +14,13 @@ from . import __version__, engine
 from .engine import PathNotFound
 
 INSTRUCTIONS = (
-    "gitwhy explains the state of a local Git repository in plain English and suggests fixes. "
+    "whygit explains the state of a local Git repository in plain English and suggests fixes. "
     "It only reads; it never changes the repository and never runs the commands it suggests. "
     "Use diagnose_repo when something seems wrong, explain_git_error when you have git or GitHub error text, "
     "and explain_state for a neutral summary. Ahead/behind counts are as of the last fetch; it does not contact GitHub."
 )
 
-mcp = MCPServer("gitwhy", instructions=INSTRUCTIONS, version=__version__)
+mcp = MCPServer("whygit", instructions=INSTRUCTIONS, version=__version__)
 
 READ_ONLY = ToolAnnotations(read_only_hint=True, destructive_hint=False, idempotent_hint=True, open_world_hint=False)
 

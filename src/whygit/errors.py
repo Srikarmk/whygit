@@ -259,7 +259,7 @@ def _push_rejected(m, text, st):
                 [
                     Step("Downloads their commits and merges them with yours", "git pull --no-rebase"),
                     Step(
-                        "If it reports conflicts, fix them (gitwhy will explain the state), then `git add` and `git commit`."
+                        "If it reports conflicts, fix them (whygit will explain the state), then `git add` and `git commit`."
                     ),
                     Step("Uploads the combined result", "git push"),
                     _no_force_step(),
@@ -485,7 +485,7 @@ def _too_large(m, text, st):
         fix=[
             FixOption(
                 "Find the big files",
-                [Step("Run gitwhy in the repository to list large files waiting to be pushed", "gitwhy")],
+                [Step("Run whygit in the repository to list large files waiting to be pushed", "whygit")],
             )
         ],
         learn_more=DOCS + "git-push",
@@ -631,8 +631,8 @@ def _untracked_overwritten(m, text, st):
             FixOption(
                 "Move them aside",
                 [
-                    Step("Makes a backup folder next to the project", "mkdir ../gitwhy-backup"),
-                    Step("Moves the files there (macOS/Linux; on Windows use move)", f"mv {paths} ../gitwhy-backup/"),
+                    Step("Makes a backup folder next to the project", "mkdir ../whygit-backup"),
+                    Step("Moves the files there (macOS/Linux; on Windows use move)", f"mv {paths} ../whygit-backup/"),
                     Step("Run your command again, then compare with the backup."),
                 ],
             )

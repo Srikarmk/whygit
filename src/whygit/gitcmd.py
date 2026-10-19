@@ -1,4 +1,4 @@
-"""The only place gitwhy starts a process. Every git call goes through run_git,
+"""The only place whygit starts a process. Every git call goes through run_git,
 which accepts read-only subcommands and refuses everything else."""
 
 from __future__ import annotations
@@ -121,7 +121,7 @@ def _env() -> dict[str, str]:
 
 
 # Global options added to every call: no pager, and no fsmonitor hook, so a
-# repository's own config cannot make gitwhy run another program.
+# repository's own config cannot make whygit run another program.
 _GLOBAL_OPTS = ("--no-pager", "-c", "core.fsmonitor=false", "-c", "core.quotePath=false")
 
 

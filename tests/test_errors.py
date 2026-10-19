@@ -5,7 +5,7 @@ and marked as such."""
 import pytest
 import scenarios as S
 
-from gitwhy.engine import explain_error
+from whygit.engine import explain_error
 
 
 def rules_of(res):

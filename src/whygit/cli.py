@@ -1,4 +1,4 @@
-"""Command line front end: gitwhy, gitwhy status, gitwhy explain, gitwhy mcp."""
+"""Command line front end: whygit, whygit status, whygit explain, whygit mcp."""
 
 from __future__ import annotations
 
@@ -11,13 +11,13 @@ from .engine import PathNotFound, diagnose, explain_error, explain_state
 from .render import Style, render_diagnosis, render_explanation, render_state, want_color
 
 EPILOG = """examples:
-  gitwhy                          explain what's going on in this repository
-  gitwhy status                   plain summary: branch, upstream, changes
-  gitwhy explain "fatal: refusing to merge unrelated histories"
-  git push 2>&1 | gitwhy explain -
-  gitwhy mcp                      run as an MCP server (for Claude Code, Cursor, Claude Desktop)
+  whygit                          explain what's going on in this repository
+  whygit status                   plain summary: branch, upstream, changes
+  whygit explain "fatal: refusing to merge unrelated histories"
+  git push 2>&1 | whygit explain -
+  whygit mcp                      run as an MCP server (for Claude Code, Cursor, Claude Desktop)
 
-gitwhy only reads your repository. It never runs the fixes it suggests."""
+whygit only reads your repository. It never runs the fixes it suggests."""
 
 
 def _common(p: argparse.ArgumentParser, suppress: bool) -> None:
@@ -31,12 +31,12 @@ def _common(p: argparse.ArgumentParser, suppress: bool) -> None:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        prog="gitwhy",
+        prog="whygit",
         description="Explains what state your Git repository is in and how to fix it, in plain English.",
         epilog=EPILOG,
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
-    parser.add_argument("--version", action="version", version=f"gitwhy {__version__}")
+    parser.add_argument("--version", action="version", version=f"whygit {__version__}")
     _common(parser, suppress=False)
     sub = parser.add_subparsers(dest="command", metavar="command")
     p = sub.add_parser("diagnose", help="list problems, most urgent first (the default)")
@@ -82,7 +82,7 @@ def main(argv: list[str] | None = None) -> int:
                     )
                 text = sys.stdin.read() if sys.stdin is not None else ""
             if not text.strip():
-                print("gitwhy explain: no error text given.", file=sys.stderr)
+                print("whygit explain: no error text given.", file=sys.stderr)
                 return 2
             res = explain_error(text, args.path)
             _emit(res, args.json, lambda r: render_explanation(r, style))
@@ -92,7 +92,7 @@ def main(argv: list[str] | None = None) -> int:
         return 1 if any(f["severity"] == "blocking" for f in res["findings"]) else 0
     except PathNotFound as exc:
         print(
-            f"gitwhy: the folder {exc} does not exist. Use --path with your project folder, or cd into it first.",
+            f"whygit: the folder {exc} does not exist. Use --path with your project folder, or cd into it first.",
             file=sys.stderr,
         )
         return 2

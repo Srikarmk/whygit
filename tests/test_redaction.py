@@ -1,8 +1,8 @@
 import json
 
-from gitwhy.cli import main
-from gitwhy.engine import diagnose, explain_error, explain_state
-from gitwhy.gitcmd import redact
+from whygit.cli import main
+from whygit.engine import diagnose, explain_error, explain_state
+from whygit.gitcmd import redact
 
 TOKEN = "ghp_" + "A1b2C3d4E5f6G7h8I9j0K1l2M3n4O5p6Q7r8"
 URL = f"https://student:{TOKEN}@github.com/student/hw1.git"

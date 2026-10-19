@@ -3,7 +3,7 @@ import json
 import subprocess
 import sys
 
-from gitwhy.cli import main
+from whygit.cli import main
 
 
 def test_default_is_diagnose_and_exit_code(build, capsys):
@@ -68,13 +68,13 @@ def test_no_emoji_or_non_ascii_in_rule_text(build, capsys):
 
 def test_module_entry_point(build):
     path = build("detached_clean")
-    p = subprocess.run([sys.executable, "-m", "gitwhy", "--path", str(path)], capture_output=True, text=True)
+    p = subprocess.run([sys.executable, "-m", "whygit", "--path", str(path)], capture_output=True, text=True)
     assert p.returncode == 0
     assert "detached HEAD" in p.stdout
 
 
 def test_color_only_on_tty(monkeypatch):
-    from gitwhy.render import want_color
+    from whygit.render import want_color
 
     class Tty(io.StringIO):
         def isatty(self):

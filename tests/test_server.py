@@ -4,7 +4,7 @@ import sys
 import pytest
 from mcp import Client, StdioServerParameters
 
-from gitwhy.server import mcp
+from whygit.server import mcp
 
 pytestmark = pytest.mark.anyio
 
@@ -73,7 +73,7 @@ async def test_missing_path_is_a_recoverable_error(client, sandbox):
 
 
 async def test_stdio_server_starts_and_lists_tools(sandbox):
-    params = StdioServerParameters(command=sys.executable, args=["-m", "gitwhy", "mcp"], env=dict(os.environ))
+    params = StdioServerParameters(command=sys.executable, args=["-m", "whygit", "mcp"], env=dict(os.environ))
     async with Client(params) as c:
         result = await c.list_tools()
         assert {t.name for t in result.tools} == TOOLS

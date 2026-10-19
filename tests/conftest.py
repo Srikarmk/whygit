@@ -22,7 +22,7 @@ def sandbox(tmp_path, monkeypatch):
 @pytest.fixture
 def build(sandbox, monkeypatch):
     """build(name) creates the named scenario and returns its path, with any
-    extra environment gitwhy should see already applied."""
+    extra environment whygit should see already applied."""
 
     def _build(name: str) -> Path:
         builder, _, env = SCENARIOS[name]

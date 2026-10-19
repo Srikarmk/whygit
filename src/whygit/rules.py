@@ -70,7 +70,7 @@ def git_not_installed(st: RepoState):
         "git_not_installed",
         "blocking",
         "Git is not installed (or your terminal can't find it)",
-        "gitwhy asks the `git` program about your repository, and no `git` command could be started. "
+        "whygit asks the `git` program about your repository, and no `git` command could be started. "
         "Install Git, then open a new terminal window so it is picked up.",
         fix=[
             FixOption(
