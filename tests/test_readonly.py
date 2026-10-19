@@ -4,6 +4,7 @@ import ast
 import hashlib
 import os
 import subprocess
+import time
 from pathlib import Path
 
 import pytest
@@ -34,16 +35,34 @@ def snapshot(root: Path) -> dict:
     return snap
 
 
+def settled(root: Path, timeout: float = 3.0) -> dict:
+    """A snapshot once nothing else is still writing: two in a row, 100 ms apart, must match."""
+    deadline = time.monotonic() + timeout
+    snap = snapshot(root)
+    while True:
+        time.sleep(0.1)
+        again = snapshot(root)
+        if again == snap:
+            return snap
+        if time.monotonic() > deadline:
+            pytest.fail(f"sandbox still changing before gitwhy ran: {changed(snap, again)}")
+        snap = again
+
+
+def changed(a: dict, b: dict) -> list[str]:
+    return sorted(k for k in a.keys() | b.keys() if a.get(k) != b.get(k))
+
+
 @pytest.mark.parametrize("name", sorted(SCENARIOS))
 def test_diagnosing_changes_nothing(build, sandbox, name):
     path = build(name)
-    before = snapshot(sandbox.root)
+    before = settled(sandbox.root)
     engine.diagnose(path)
     engine.explain_state(path)
     engine.explain_error("error: failed to push some refs to 'origin'", path)
     engine.explain_error("something gitwhy has never seen", path)
     after = snapshot(sandbox.root)
-    assert before == after
+    assert not changed(before, after), f"gitwhy changed: {changed(before, after)}"
 
 
 def test_stale_index_would_be_rewritten_by_plain_status(build, sandbox):

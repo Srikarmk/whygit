@@ -24,6 +24,9 @@ class Sandbox:
             "[core]\n\tautocrlf = false\n"
             "[advice]\n\tdetachedHead = true\n"
             '[protocol "file"]\n\tallow = always\n'
+            # no background gc/maintenance after commits, so a scenario is finished when its last git call returns
+            "[gc]\n\tauto = 0\n\tautoDetach = false\n"
+            "[maintenance]\n\tauto = false\n\tautoDetach = false\n"
         )
 
     # environment applied by the pytest fixture
