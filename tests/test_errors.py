@@ -204,7 +204,7 @@ def c_dubious(sb):
 
 def c_crlf(sb):
     repo, _ = sb.published()
-    (repo / "notes.txt").write_text("a\nb\n")
+    (repo / "notes.txt").write_bytes(b"a\nb\n")  # bytes: write_text would already give CRLF on Windows
     return sb.out(repo, "-c", "core.autocrlf=true", "add", "notes.txt"), repo
 
 

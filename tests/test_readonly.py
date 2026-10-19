@@ -21,7 +21,7 @@ def snapshot(root: Path) -> dict:
     for dirpath, dirnames, filenames in os.walk(root):
         for d in dirnames:
             p = Path(dirpath, d)
-            snap[str(p.relative_to(root)) + "/"] = p.stat().st_mtime_ns
+            snap[p.relative_to(root).as_posix() + "/"] = p.stat().st_mtime_ns
         for name in filenames:
             p = Path(dirpath, name)
             st = p.stat()
@@ -30,7 +30,7 @@ def snapshot(root: Path) -> dict:
             else:
                 with open(p, "rb") as fh:
                     digest = hashlib.sha256(fh.read(65536)).hexdigest()
-            snap[str(p.relative_to(root))] = (st.st_size, st.st_mtime_ns, digest)
+            snap[p.relative_to(root).as_posix()] = (st.st_size, st.st_mtime_ns, digest)
     return snap
 
 
