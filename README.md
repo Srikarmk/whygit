@@ -2,6 +2,8 @@
 
 <!-- mcp-name: io.github.Srikarmk/whygit -->
 
+<a href="https://github.com/Srikarmk/whygit/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/Srikarmk/whygit/actions/workflows/ci.yml/badge.svg" /></a> <a href="https://pypi.org/project/whygit/"><img alt="PyPI" src="https://img.shields.io/pypi/v/whygit?color=5b4fc9" /></a> <a href="https://pypi.org/project/whygit/"><img alt="Python" src="https://img.shields.io/pypi/pyversions/whygit" /></a> <a href="https://registry.modelcontextprotocol.io/v0.1/servers?search=io.github.Srikarmk/whygit"><img alt="MCP registry" src="https://img.shields.io/badge/MCP%20registry-io.github.Srikarmk%2Fwhygit-5b4fc9" /></a> <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-blue" /></a> <a href="https://www.srikarmk.dev/projects/whygit"><img alt="Case study" src="https://img.shields.io/badge/case%20study-srikarmk.dev-5b4fc9" /></a>
+
 **What just happened to my Git repository, and how do I fix it?**
 
 whygit looks at a Git repository and tells you, in plain English, what state it is in and
