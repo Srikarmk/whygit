@@ -1,5 +1,7 @@
 # whygit
 
+<!-- mcp-name: io.github.Srikarmk/whygit -->
+
 **What just happened to my Git repository, and how do I fix it?**
 
 whygit looks at a Git repository and tells you, in plain English, what state it is in and

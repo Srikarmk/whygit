@@ -1,0 +1,21 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.Srikarmk/whygit",
+  "title": "whygit",
+  "description": "Read-only Git explainer: what state a repo is in, what an error means, and the exact fix.",
+  "repository": {
+    "url": "https://github.com/Srikarmk/whygit",
+    "source": "github"
+  },
+  "version": "0.1.2",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "whygit",
+      "version": "0.1.2",
+      "runtimeHint": "uvx",
+      "transport": { "type": "stdio" },
+      "packageArguments": [{ "type": "positional", "value": "mcp" }]
+    }
+  ]
+}

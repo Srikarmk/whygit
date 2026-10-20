@@ -11,3 +11,14 @@ Each release:
 1. Bump the version in both `pyproject.toml` and `src/whygit/__init__.py` (the workflow refuses a mismatch).
 2. Commit, then `git tag vX.Y.Z && git push origin main vX.Y.Z`.
 3. Check the Publish run on GitHub Actions, then `uvx whygit@X.Y.Z --version`.
+
+## MCP registry
+
+`server.json` describes the server for the official MCP registry (registry.modelcontextprotocol.io). The
+README's `mcp-name` comment proves to the registry that this PyPI package belongs to the listing. After a
+PyPI release, bump `version` (both fields) in `server.json` to match, then:
+
+```
+mcp-publisher login github
+mcp-publisher publish
+```

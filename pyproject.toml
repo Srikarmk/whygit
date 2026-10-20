@@ -1,6 +1,6 @@
 [project]
 name = "whygit"
-version = "0.1.1"
+version = "0.1.2"
 description = "Explains what state your Git repository is in and how to fix it, in plain English. CLI and MCP server; read-only."
 readme = "README.md"
 requires-python = ">=3.10"
